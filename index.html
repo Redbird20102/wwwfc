@@ -6,46 +6,42 @@
     <title>WWWFC - Welcome</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <style>
-        /* Add Christmas palette */
-        :root {
-            --ny-gold: #FFD700;
-            --ny-navy: #071433;
-            --ny-silver: #E6E8EB;
-            --dark: #05040B;
-        }
-
         body {
             margin: 0;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            /* New Year: deep navy with subtle glow */
-            background: radial-gradient(circle at 10% 10%, #0b2a4b 0%, #04030a 60%);
+            background: linear-gradient(135deg, #001f5c 0%, #000000 40%, #004699 70%, #001f5c 100%);
             font-family: 'Bebas Neue', sans-serif;
             font-weight: bold;
             overflow: hidden;
             position: relative;
-            /* Removed animation: backgroundZoom 40s infinite alternate ease-in-out; */
+            animation: backgroundZoom 40s infinite alternate ease-in-out;
             margin-left: 200px; /* Add space for nav */
         }
 
-        /* Light sweep colors (soft white + subtle red and green) */
+        @keyframes backgroundZoom {
+            0% { background-size: 100% 100%; background-position: 0% 0%; }
+            50% { background-size: 130% 130%; background-position: 30% 30%; }
+            100% { background-size: 120% 120%; background-position: 10% 10%; }
+        }
+
         .light-sweep {
             position: absolute;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.10), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
             animation: sweep 2.5s infinite linear;
             transform: skewX(-20deg);
-            filter: blur(3px);
+            filter: blur(5px);
         }
 
         .light-sweep-2 {
             position: absolute;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(14,61,145,0.08), transparent); /* blue tint */
+            background: linear-gradient(90deg, transparent, rgba(0,255,255,0.1), transparent);
             animation: sweep 4s infinite linear;
             transform: skewX(-20deg);
         }
@@ -54,7 +50,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.06), transparent); /* gold tint */
+            background: linear-gradient(90deg, transparent, rgba(255,140,0,0.1), transparent);
             animation: sweep 3.5s infinite linear;
             transform: skewX(-20deg);
         }
@@ -64,18 +60,20 @@
             100% { transform: translateX(200%) skewX(-20deg); }
         }
 
-        /* Content box: green-toned background and red-green glow */
         .content {
             text-align: center;
             color: white;
             z-index: 1;
             animation: pulse 2s ease-in-out infinite;
             padding: 2rem;
-            background: rgba(6, 14, 30, 0.55);
-            box-shadow: 0 8px 40px rgba(0,0,0,0.6), inset 0 0 30px rgba(255,215,0,0.04);
-            border: 1px solid rgba(255,215,0,0.12);
+            background: rgba(0, 10, 30, 0.4);
+            box-shadow: 
+                0 0 50px rgba(0, 255, 255, 0.2),
+                0 0 100px rgba(0, 255, 255, 0.1),
+                inset 0 0 30px rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.2);
             border-radius: 15px;
-            animation:
+            animation: 
                 pulse 2s ease-in-out infinite,
                 borderGlow 3s linear infinite;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -111,7 +109,6 @@
             box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
         }
 
-        /* Particle / Snow styling */
         .particles {
             position: absolute;
             top: 0;
@@ -124,51 +121,63 @@
 
         .particle {
             position: absolute;
-            width: 8px;
-            height: 14px;
-            border-radius: 2px;
-            animation: confettiFall 10s infinite linear;
-            transform-origin: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.35);
-            opacity: 0.95;
-        }
-
-        .particle:nth-child(2n) { background: var(--ny-gold); }
-        .particle:nth-child(3n) { background: var(--ny-silver); }
-        .particle:nth-child(5n) { background: var(--ny-navy); }
-
-        @keyframes confettiFall {
-            0% { transform: translateY(-120vh) rotate(0deg) translateX(0); }
-            50% { transform: translateY(0vh) rotate(360deg) translateX(10vw); }
-            100% { transform: translateY(120vh) rotate(720deg) translateX(-10vw); }
+            width: 3px;
+            height: 3px;
+            background: cyan;
+            border-radius: 50%;
+            animation: particleFall 15s infinite linear, particleGlow 2s infinite alternate;
+            filter: blur(1px);
+            box-shadow: 
+                0 0 15px currentColor,
+                0 0 30px currentColor;
+            opacity: 0.7;
+            transform-style: initial;
         }
 
         @keyframes particleGlow {
-            0% { filter: blur(0.5px) brightness(1); }
-            100% { filter: blur(1px) brightness(1.2); }
+            0% { filter: blur(1px) brightness(1); }
+            100% { filter: blur(2px) brightness(1.5); }
         }
 
-        /* h1 and p gradients switch to red & green with mild white accents */
+        .particle:nth-child(2n) {
+            background: linear-gradient(45deg, cyan, blue);
+        }
+
+        .particle:nth-child(3n) {
+            width: 4px;
+            height: 4px;
+            color: #4ff4ff;
+        }
+
+        .particle:nth-child(3n+1) {
+            width: 2px;
+            height: 2px;
+            color: #0088ff;
+        }
+
         h1 {
             font-size: 5rem;
             margin: 0;
             letter-spacing: 3px;
             background: linear-gradient(
                 to right,
-                var(--ny-gold) 0%,
-                var(--ny-silver) 45%,
-                var(--ny-gold) 100%
+                #00ffff 0%,
+                #ffffff 20%,
+                #4ff4ff 40%,
+                #ffffff 60%,
+                #00ffff 80%,
+                #4ff4ff 100%
             );
             background-size: 200% auto;
             color: transparent;
             -webkit-background-clip: text;
             background-clip: text;
-            animation:
+            animation: 
                 shine 2s linear infinite,
                 shimmer 2s infinite,
                 float 4s ease-in-out infinite;
             text-shadow: none;
-            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.18));
+            filter: drop-shadow(0 0 20px rgba(0,255,255,0.4)) brightness(1.2);
             text-transform: uppercase;
             position: relative;
         }
@@ -181,7 +190,7 @@
             z-index: -1;
             filter: blur(15px);
             opacity: 0.5;
-            color: var(--ny-gold);
+            color: cyan;
         }
 
         p {
@@ -190,8 +199,9 @@
             opacity: 0.8;
             background: linear-gradient(
                 to right,
-                rgba(255,215,0,0.9) 20%,
-                rgba(230,232,235,0.9) 60%
+                rgb(162, 255, 255) 20%,
+                white 50%,
+                rgb(88, 255, 255) 80%
             );
             background-size: 200% auto;
             color: transparent;
@@ -199,7 +209,7 @@
             background-clip: text;
             animation: shine 5s linear infinite;
             text-shadow: none;
-            filter: drop-shadow(0 0 8px rgba(0,0,0,0.35));
+            filter: drop-shadow(0 0 8px rgba(0,255,255,0.3));
         }
 
         @keyframes shine {
@@ -213,53 +223,79 @@
             50% { transform: scale(1.02); }
         }
 
-        /* Glow animation uses red & green steps */
         @keyframes borderGlow {
-            0% { border-color: var(--ny-gold); box-shadow: 0 0 18px rgba(255,215,0,0.12); }
-            50% { border-color: var(--ny-silver); box-shadow: 0 0 20px rgba(230,232,235,0.08); }
-            100% { border-color: var(--ny-gold); box-shadow: 0 0 18px rgba(255,215,0,0.12); }
+            0% { border-color: cyan; }
+            33% { border-color: #4ff4ff; }
+            66% { border-color: #0088ff; }
+            100% { border-color: cyan; }
         }
 
-        /* Replace 'star' with 'snowflake' styling to show glyphs */
-        .star, .snowflake, .spark {
-            position: absolute;
-            font-size: 12px;
-            color: var(--christmas-white);
-            animation: twinkle 3s infinite;
-            text-shadow: 0 0 6px rgba(255,215,0,0.95);
-            filter: blur(0.5px);
+        @keyframes shimmer {
+            0% { filter: drop-shadow(0 0 20px rgba(0,255,255,0.3)) brightness(1); }
+            50% { filter: drop-shadow(0 0 30px rgba(0,255,255,0.6)) brightness(1.3); }
+            100% { filter: drop-shadow(0 0 20px rgba(0,255,255,0.3)) brightness(1); }
         }
 
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.2; transform: translateY(0) scale(1); }
-            50% { opacity: 1; transform: translateY(-4px) scale(1.3); }
+        @keyframes particleFall {
+            from { transform: translateY(-100vh) rotate(0deg); }
+            to { transform: translateY(100vh) rotate(360deg); }
         }
 
-        /* rain is changed to gentle snow overlay */
-        .confetti-layer {
+        .lightning {
             position: absolute;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            opacity: 0.06;
-            animation: drift 6s linear infinite;
+            z-index: 2;
+            opacity: 0;
+            animation: lightning 10s infinite;
         }
 
-        @keyframes drift {
-            0% { transform: translateY(-20%); }
-            100% { transform: translateY(20%); }
+        @keyframes lightning {
+            0%, 95%, 98% { opacity: 0; }
+            96%, 99% { opacity: 0.8; background: white; }
         }
 
-        /* Nav updated to greener background with red hover highlight */
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            animation: twinkle 3s infinite;
+            box-shadow: 
+                0 0 4px white,
+                0 0 8px rgba(0, 255, 255, 0.8);
+            filter: blur(1px);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        .rain {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent, rgba(0,255,255,0.2));
+            animation: rain 1s linear infinite;
+            opacity: 0.1;
+        }
+
+        @keyframes rain {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
         .nav-menu {
             position: fixed;
             left: 0;
             top: 0;
             height: 100%;
             width: 200px;
-            background: linear-gradient(180deg, rgba(8,20,60,0.98) 0%, rgba(0, 0, 0, 0.65) 100%);
-            border-right: 1px solid rgba(255,215,0,0.08);
-            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.4);
+            background: rgba(0, 15, 40, 0.7);
+            border-right: 1px solid rgba(0, 255, 255, 0.15);
+            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(15px);
             padding: 20px;
             display: flex;
@@ -276,76 +312,20 @@
             border: 1px solid transparent;
             border-radius: 8px;
             transition: all 0.3s ease;
-            background: linear-gradient(135deg, rgba(20, 30, 60, 0.85), rgba(0, 0, 0, 0.85));
+            background: linear-gradient(135deg, rgba(0, 30, 60, 0.4), rgba(0, 15, 40, 0.6));
             letter-spacing: 2px;
             text-transform: uppercase;
-            box-shadow: inset 0 1px rgba(255, 255, 255, 0.03);
+            box-shadow: inset 0 1px rgba(255, 255, 255, 0.1);
         }
 
         .nav-link:hover {
-            border-color: var(--ny-gold);
-            box-shadow: 0 0 18px rgba(255,215,0,0.22);
+            border-color: cyan;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
             transform: translateX(5px);
-        }
-
-        /* soften dazzling animations for a festive look */
-        @keyframes shimmer {
-            0% { filter: drop-shadow(0 0 18px rgba(255,215,0,0.18)); }
-            50% { filter: drop-shadow(0 0 28px rgba(230,232,235,0.20)); }
-            100% { filter: drop-shadow(0 0 18px rgba(255,215,0,0.18)); }
-        }
-
-        /* Popup box styling */
-        .popup-update {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            min-width: 700px; /* was 340px, now longer */
-            max-width: 90vw;
-            background: rgba(3, 10, 26, 0.85);
-            color: var(--ny-silver);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 0 4px rgba(255,215,0,0.06);
-            border: 2px solid rgba(255,215,0,0.12);
-            z-index: 9999;
-            padding: 2rem 2.5rem 1.5rem 2.5rem;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.4rem;
-            text-align: center;
-            animation: popupFadeIn 0.7s;
-        }
-        @keyframes popupFadeIn {
-            from { opacity: 0; transform: translate(-50%, -60%) scale(0.9);}
-            to { opacity: 1; transform: translate(-50%, -50%) scale(1);}
-        }
-        .popup-update strong {
-            color: var(--ny-gold);
-            font-size: 1.2em;
-        }
-        .popup-close {
-            position: absolute;
-            top: 12px;
-            right: 18px;
-            background: var(--ny-gold);
-            color: #fff;
-            border: none;
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            font-size: 1.3rem;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-            transition: background 0.2s;
-        }
-        .popup-close:hover {
-            background: var(--ny-navy);
         }
     </style>
 </head>
 <body>
-    <!-- Black overlay for popup -->
-    <div id="popupOverlay" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.55);z-index:9998;display:none;"></div>
     <nav class="nav-menu">
         <a href="radar.html" class="nav-link">Radar</a>
         <a href="confidence.html" class="nav-link">Confidence Outlook</a>
@@ -362,75 +342,41 @@
         <div class="particle" style="left: 85%; animation-delay: 14s;"></div>
         <div class="particle" style="left: 45%; animation-delay: 16s;"></div>
     </div>
-    <div class="confetti-layer"></div>
+    <div class="rain"></div>
     <script>
-        // Add dynamic sparklers/fireworks/confetti emojis
-        function createSparklers() {
+        // Add dynamic stars
+        function createStars() {
             const container = document.body;
-            const emojis = ['✨','🎉','🎆'];
-            for (let i = 0; i < 14; i++) {
-                const spark = document.createElement('div');
-                spark.className = 'spark';
-                spark.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-                spark.style.left = Math.random() * 100 + '%';
-                spark.style.top = Math.random() * 80 + '%';
-                const size = 18 + Math.random() * 30;
-                spark.style.fontSize = size + 'px';
-                spark.style.opacity = 0.5 + Math.random() * 0.6;
-                spark.style.animationDelay = (Math.random() * 2) + 's';
-                spark.style.color = ['#FFD700','#E6E8EB','#0b3d91'][Math.floor(Math.random() * 3)];
-                container.appendChild(spark);
+            for(let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                container.appendChild(star);
             }
         }
 
-        // Create snow particle puffs with red & green accent puffs
         function createParticles() {
             const container = document.querySelector('.particles');
-            for (let i = 0; i < 36; i++) {
+            for(let i = 0; i < 20; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
                 particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = -Math.random() * 40 + 'vh';
-                particle.style.animationDelay = Math.random() * 8 + 's';
-                const colorOptions = ['#FFD700', '#E6E8EB', '#0b3d91', '#ff4d4d'];
-                particle.style.backgroundColor = colorOptions[Math.floor(Math.random() * colorOptions.length)];
-                particle.style.opacity = 0.85 + Math.random() * 0.15;
-                particle.style.width = (6 + Math.round(Math.random() * 10)) + 'px';
-                particle.style.height = (10 + Math.round(Math.random() * 10)) + 'px';
-                particle.style.transform = 'rotate(' + (Math.random() * 360) + 'deg)';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.backgroundColor = `hsl(${180 + Math.random() * 60}, 100%, 70%)`;
                 container.appendChild(particle);
             }
         }
-
-        createSparklers();
+        createStars();
         createParticles();
-
-        // Popup show-once logic
-        window.addEventListener('DOMContentLoaded', function() {
-            if (!localStorage.getItem('popupUpdateRead')) {
-                document.getElementById('popupUpdate').style.display = 'block';
-                document.getElementById('popupOverlay').style.display = 'block';
-            }
-            document.getElementById('popupCloseBtn').onclick = function() {
-                document.getElementById('popupUpdate').style.display = 'none';
-                document.getElementById('popupOverlay').style.display = 'none';
-                localStorage.setItem('popupUpdateRead', 'true');
-            };
-        });
     </script>
     <div class="light-sweep-3"></div>
     <div class="light-sweep-2"></div>
     <div class="light-sweep"></div>
     <div class="content">
-        <h1 data-text="HAPPY NEW YEAR 2026">HAPPY NEW YEAR 2026</h1>
-        <p>Westin's Weather Wise Forecast Center — Happy New Year 2026!</p>
-    </div>
-    <!-- Popup update box -->
-    <div class="popup-update" id="popupUpdate" style="display:none;">
-        <button class="popup-close" id="popupCloseBtn">&times;</button>
-        <strong>The website has been updated to a New Year theme!</strong>
-        <br>
-        The radar performance issue has been fixed to improve responsiveness and reduce lag — enjoy the smoother experience. Happy New Year 2026!
+        <h1 data-text="WELCOME TO WWWFC">WELCOME TO WWWFC</h1>
+        <p>Westin's Weather Wise Forecast Center</p>
     </div>
 </body>
 </html>
